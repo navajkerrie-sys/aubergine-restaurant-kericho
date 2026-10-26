@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aubergine Restaurant – Menu</title>
+<style>
+:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--cream:#fbebdc;--cream2:#f7dfcb;--ink:#2b1d1a;--red:#c8161d;--green:#35a846;--gold:#e8a91d;--mut:#6b5a52}
+html{scroll-padding-top:130px;scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.4}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--cream);z-index:10}
+header{text-align:center;padding:48px 20px 28px;background:radial-gradient(circle at 50% 0,#fff6ec,var(--cream))}
+.logo{font-size:clamp(2.4rem,8vw,4rem);color:#4a1d5c;letter-spacing:.02em}
+.logo small{display:block;font-size:.35em;color:var(--green);letter-spacing:.3em;text-transform:uppercase}
+.tag{display:inline-block;margin-top:14px;background:var(--red);color:#fff;padding:6px 18px;border-radius:30px;font-style:italic}
+.intro{max-width:720px;margin:22px auto 0;color:var(--mut);font-size:.98rem;text-align:left}
+.intro p{margin:0 0 10px}
+#bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--cream);border-bottom:3px solid var(--green)}
+[hidden]{display:none!important}
+#sw{padding:0 14px 10px}
+#q{width:100%;max-width:560px;display:block;margin:0 auto;font:1rem Georgia,serif;color:var(--ink);background:#fff8f0;border:1.5px solid #d9b99f;border-radius:30px;padding:10px 18px;outline:none}
+#q:focus{border-color:var(--red)}
+#none{text-align:center;color:var(--mut);padding:40px 0;font-style:italic}
+nav{display:flex;gap:8px;overflow-x:auto;padding:10px 14px;white-space:nowrap}
+nav a{flex:none;text-decoration:none;color:var(--red);border:1.5px solid var(--red);border-radius:30px;padding:5px 14px;font-size:.88rem;font-weight:bold}
+nav a:hover{background:var(--red);color:#fff}
+main{max-width:1100px;margin:0 auto;padding:10px 16px 40px}
+h2{font-size:1.9rem;color:var(--red);margin:44px 0 16px;padding-bottom:8px;border-bottom:3px solid;border-image:linear-gradient(90deg,var(--gold),transparent) 1}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:6px 60px;align-items:start}
+.card{margin-bottom:26px}
+h3{margin:0 0 14px;color:var(--red);font:bold 1.05rem/1.2 Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;padding-bottom:6px;border-bottom:2px solid var(--gold)}
+.it{margin:0 0 11px}
+.r{display:flex;align-items:baseline;gap:8px;font-weight:bold}
+.r i{flex:1;border-bottom:1.5px dotted #b99a85;transform:translateY(-3px)}
+.r b{color:var(--red);white-space:nowrap;font-family:Arial,sans-serif;font-size:.9rem}
+.d{font-size:.86rem;color:var(--mut);font-style:italic;margin-top:1px}
+.note{font-size:.84rem;font-style:italic;color:var(--green);font-weight:bold;margin:2px 0 10px}
+footer{text-align:center;padding:26px 16px 36px;color:#fff;background:var(--green);font-size:.9rem}
+</style></head><body>
+<header><div class="logo">aubergine<small>Restaurant</small></div><div class="tag">Kericho Cuisine Stop</div>
+<div class="intro"><p>Founded in 2018, Aubergine Restaurant came onto the Kericho dining scene with a bang.</p>
+<p>Here, the food is honest and intelligent, focused on using only the freshest and locally available ingredients. A quick look at the menu confirms this philosophy.</p>
+<p>There’s an assortment of starters to choose from including their signature Sweet and Sour Chicken wings, Smoked Sailfish, and Beef Carpaccio, as well as an assortment of crisp salads, velvety soups, and delicious house sandwiches.</p>
+<p>Seafood is delivered fresh daily from Kenya’s coast using refrigerated transport to give us sublime dishes such as Swahili Coconut Fish, and Chilli Prawns, while the local organic beef, duck, and chicken, sourced from the farms around Kericho yields succulent and flavorful dishes such as the Kericho Beef Fillet, Pan Roasted Duck in Orange Sauce, and Lemon and Rosemary Chicken. If you’re after some casual dining Aubergine also offers an extensive pizza menu from the classic Margherita to the child favourite Hawaiian.</p></div></header>
+<div id="bar"><nav id="nav"></nav><div id="sw"><input id="q" type="search" placeholder="Search the menu…" aria-label="Search the menu"></div></div><main id="m"></main>
+<footer>All prices are in Kenya Shillings and include value added tax and catering levy.</footer>
+<script>
+const D=`@Breakfast & Hot Drinks
+#Breakfast
+Breakfast|Eggs, sausage, bacon, toast, juice, tea/coffee/hot chocolate/fruits|1,250
+Eggs (Plain omelette, Fried)|150
+Spanish Omelette, Cheese omelette|220
+Home made Muesli|800
+Pancakes Maple Syrup/Honey|220
+Bacon|350
+Bacon special|450
+Beef sausage|100
+Pork Sausage|110
+Sausage Special|180
+Smokie Special|160
+Arrow roots|150
+Sweet Potatoes|120
+Chapati|50
+Mandazi|50
+Croissant|250
+Doughnut|250
+Banana Cake|250
+Toast|50
+#Coffee
+House Coffee|270
+Espresso|250
+Cappuccino|280
+Caffee Latte|280
+Café Mocha|300
+#Tea and Herbal Infusion
+Tea Pot|200
+Earl Grey Tea|200
+Pepper Mint Tea|200
+Organic Pepper Mint Tea|200
+Lemon and Ginger Tea|200
+Chamomile Tea|200
+Caramel Tea|200
+Cinnamon Tea|200
+Aubergine Dawa|Ask for extra honey at added cost and enjoy sweet and sour taste|250
+Jaipur Masala Tea|180
+Hot Chocolate|250
+#Refreshments
+Uji wimbi|200
+Mursik|130
+Glass of Milk|130
+Fresh Juice|350
+Packet Juice|300
+Iced Coffee/ Tea|270
+Milk Shake|350
+Lemonade|250
+Yoghurt|100
+Smoothie|400
+Lemon Mint|350
+Strawberry Lemonade|400
+@Starters, Soups & Salads
+#Starters
+Samosa|A selection of either meat or vegetable, served with a chutney|200
+Samosa Special|280
+Spring Rolls|A selection of vegetable or chicken, served with Sweet Chilli Sauce|200
+Smoked Sail Fish and Avacado Parcels|Smoked Sailfish, Avacado, Tomato, Cucumber & Mayo|1,400
+Smoked Salmon|Smoked Salmon, horseradish, Dill, Lemon wedge, onion rings, Brown Bread|1,400
+Potato Pancakes with Salmon and Horseradish Cream|Smoked Salmon, Potato Pancakes, Herbs, Lemon wedge|1,100
+Beef Carpaccio|Fillet of beef, chilli, ginger, lemon, sesame seeds|800
+Aubergine Special - Tamarind Glazed Grilled Chicken Wings|Spicy tamarind chicken wings with a small salad|700
+Prawn Cocktail|Prawn, cherry tomatoes, avocado, lemon, iceberg lettuce|1,000
+#Soups
+~All soups are served with croutons
+Mushroom Soup|700
+Tomato and Basil Soup|400
+Cream of Butternut with Ginger Soup|400
+Spiced Potato with Beef & Coriander|400
+Soup Of the Day|400
+#Salads
+Nicoise Salad|Tuna, tomato, olives, lettuce, egg and anchovies, potatoes|1,000
+Chef’s Salad|Chicken, Apples, Celery, Grapes & Walnuts, Yoghurt dressing, served on a bed of lettuce|700
+Tomato, mixed Leaves & Avocado Salad with Croutons|
+Greek Salad|Tomato, cucumber, onion, feta cheese and olives|750
+Sweet Potato Salad|Mixed Leaves, Sweet Potato, Feta, Bacon, Calmarized Cashew nuts, Honey & Balsamic Dressing|800
+Caesar Salad|Grilled Chicken breast, lettuce, parmesan, croutons, Caesar dressing|1,000
+Garden Salad|400
+@Main Composition
+#Main Composition
+Chilli Prawns|Have it either plain, grilled with garlic lemon butter or masala served with rice|3,050
+Molo Lamb Chops|Served with roasted potatoes and seasonal vegetables|1,100
+Kericho Beef Fillet|Pepper sauce, red wine sauce or chili butter with caramelized onion|1,080
+Pork Chops|With rice and steamed vegetables, with apple sauce|1,200
+Lemon and Rosemary Chicken|Chicken, lemon couscous and pesto|900
+Grilled fillet of Tilapia with Mango Salsa|Either pan-fried, grilled, with lemon butter sauce, served with rice|1,030
+Swahili Fish Fillet|Fillet of fish seared then dropped in swahili coconut sauce|1,020
+Grilled Fresh Salmon|High in omega-3 fatty acids, it is served on spinach bed|2,850
+Pan Roasted Breast of Duck with Orange Sauce|Served with Mashed Potatoes with Caramelized onions and Roasted Vegetables|2,100
+Aubergine Mixed Grill|Lamb chops, beef medallion, choma sausage, chicken drum stick, Served with ugali and traditional vegetables|2,100
+Stir Fry Chicken Strips|Served with rice or potatoes mix of seasonal vegetables|1,000
+Stir Fry Beef Flakes|Served with rice or potatoes mix of seasonal vegetables|1,000
+Stir Fry Vegetables|Seasonal vegetables prepared with a dash of soy sauce, accompanied with rice|800
+Beef Mchuzi|Beef stew Served with Ugali or Chapati with Traditional Vegetables & kachumbari|700
+Nyama Chemusha|Healthy “Zoezi” steamed beef with chapati or rice|1,020
+Choma Beef Kebabs|Nicely done marinated beef cubes in skewers served with chips|1,020
+Steam Supreme of Chicken (Kienyeji Chicken)|Kienyeji chicken stew with either; rice, chapati or ugali with kachumbari|1,250
+Whole Tilapia|Served wet Or dry accompanied by ugali, rice, roast or sautée potatoes with traditional vegetables|950
+Deep Fried Chicken|Served wet Or dry accompanied by ugali, rice, roast or sautée potatoes with traditional vegetables|840
+Whole Broiler Chicken|Served wet Or dry accompanied by ugali, rice, roast or sautée potatoes with traditional vegetables|2,100
+Whole Kienyeji Chicken|Served wet Or dry accompanied by ugali, rice, roast or sautée potatoes with traditional vegetables|2,650
+Roasted Duck|Served wet Or dry accompanied by ugali, rice, roast or sautée potatoes with traditional vegetables|2,100
+Sirloin Steak|Served wet Or dry accompanied by ugali, rice, roast or sautée potatoes with traditional vegetables|1,200
+Lobster Thermidor|Served wet Or dry accompanied by sautée potatoes, roast or mashed potatoes|2,200
+Grilled Lobster|Served wet Or dry accompanied by sautée potatoes, roast or mashed potatoes|2,000
+#Curries
+~All curries are served with chapati or rice and condiments
+Chicken Korma|Boneless chicken simmered in a creamy curry sauce, sprinkled with cashew nuts|950
+Chicken Curry|Chunks of roasted marinated chicken in a spiced curry sauce|950
+Chicken Tandoori|Roasted marinated chicken in yoghurt and spices in a tandoori clay oven|950
+Lamb Curry|An aromatic mix of natural spices in coconut milk and lamb cubes Delhi Style|1,150
+Aloo Brinjal|Potato & egg plant cooked in mildly spiced Aubergine sauce|800
+Aloo Gobi|Potato with cauliflower cooked in masala sauce|800
+Palak Paneer|Cooked in a spinach gravy with aromatic spices|1,000
+Chilli Paneer|Cooked in spicy tomato sauce|1,000
+Vegetable Curry|1,000
+Lentil Curry|1,000
+#Extra
+Chips|280
+Poussin Chips|300
+Masala Chips|300
+Sweet Potato Chips|320
+Ugali|150
+Brown Ugali|200
+Side Salad|400
+@Pizza, Pasta & Sandwiches
+#Pizza
+Focaccia|Topped with either rosemary sea salt or sun-dried tomatoes|750
+Margherita|Topped with mixed peppers & cheese|850
+Hawaiian|Topped with pineapple chunks, ham & cheese|880
+Mexicana|Topped with minced beef, mixed peppers & cheese|880
+Polo|Topped with Chicken Flakes, mixed peppers & cheese|950
+Tuna|Tuna chunks, bell peppers, cheese|1,200
+Mediterranean Pizza|Topped with black olives, sundried tomatoes|880
+Berbecue Pizza|Topped with Mixed pepper, pineapple slice, sausage, Bacon slices & Beef flakes|1,300
+Pepperoni Pizza|Topped with mushrooms, Pepperoni, mixed pepper, sweetcorn, black olives and cheese|1,650
+#Create Your Own Pizza – Extra Toppings
+~Pay extra 50/= for take aways
+Tuna|100
+Mushroom|80
+Pineapple|50
+Black Olives|50
+Tomatoes|50
+Ham|150
+Chillies|50
+Mozzarella|100
+Red Onion|50
+Mixed Peppers|50
+Blue Cheese|100
+Chicken|100
+Beef|100
+#Pasta
+~Choice of Pasta: Penne, Spaghetti, Fresh Home made Tagliatelle
+Pomodoro|Classical “pomodoro technique” pasta prepared in tomato suace|600
+Putanesca|Typical blend of tomatoes, olive oil, anchovies, olives, capers and garlic|850
+Bolognese|Traditional beef mince cooked in Italian herb tomatoe sauce|740
+Carbonara|Blend of crisp bacon, onions, black pepper corn cream & white wine|820
+Arabbiatta|Cooked ala dente’, topped with chilli flavoured concasse and permesan cheese shavings cooked in olive oil|700
+Beef Lasagna|Lasagna pasta sheets between minced beef topped with cheese|950
+Vegetable Lasagna|Grilled seasonal vegetables, olives and mushrooms between lasagna sheet topped with cheese|840
+~All lasagnas are served with a green salad
+Meat Balls with Pasta|750
+Rissoto with Peas & Mint|Roasted vegetables|750
+Chicken Alfredo|Sliced grilled chicken and our signature, homemade alfredo sauce over fettuccine pasta|900
+Rissoto with peas, mushroom & mint|800
+#Sandwich
+~Choice of white or Brown Bread
+Steak Sandwich|Steak, caramelised onions & a side salad|600
+Chicken, Bacon, Lettuce & Tomato|650
+Croque Monsieur|Fried ham and cheese sandwich|500
+Croque Madame|Fried ham, cheese sandwich and fried egg|700
+Tomato, Cucumber, Lettuce & cheddar Cheese|Traditional home made sandwich selection|420
+~Ask for pickled gherkins and onions at no extra cost. Extra Special Toppings, choice of: cheddar, mozzarella, bacon, mushrooms @ 100.00
+#Kids Menu
+~All served with chips or mashed potatoes
+Fish & Chips|Deep fried fish in beer batter, pea puree and chips|750
+Fish Cakes|750
+Fish goujons|750
+Hot dog|500
+Bangers and Mash|Sausages, Mashed Potato and Gravy|600
+Breaded Chicken Cutlets|650
+Cottage Pie|600
+@Sweet Pleasures
+#Sweet Pleasures
+Chocolate Mousse|700
+Cream Caramel|600
+Ice Cream|Choices of flavours Vanilla, Chocolate, Strawberry|350
+Chocolate Brownie|Chocolate brownie, ice cream and chocolate sauce|550
+Sorbet|350
+Fruit Salad|Seasonal fruits|400
+Fresh Meringue|With seasonal fruits and cream|450
+@Cocktails & Drinks
+#Cocktails
+Aubergine Alcoholic Dawa|A Kenyan signature mixed drink with sweet and sour flavors with dawa being a Swahili word meaning medicine, good for your sore throat after a long day in office|550
+Redbull Passion Gin|A Can of Red Bull, Gin Passion, Sweet + Sour|750
+Margarita|A Mixture of Cointreau, liqueur of choice, tequila and lime juice give you a fulfilling freshness.|800
+Mojito|For the love of herbs such as mint, our bartenders would fix you with a mojito version a blend of a rum, Mint leaves, lemon juice and a dash of grenadine syrup|800
+Long Island Iced Tea|A distinctive journey of all white spirits flavored with cola thereby giving a color of iced tea, soothes your afternoon thirst|800
+Jamaican Sunrise|Enjoy your sunset with a soothing vodka flavors treated to a sublime pineapple juice|550
+Espresso Martini|An elegant and energizing blend of Kenyan vodka with a shot of espresso|650
+Southside Mojito|Indulge in our Signature tan query gin cocktail with mint flavors, topped up with soda water|700
+Blossom Daiquiri|A flavorful blend of fresh strawberries with a dark rumfresh orange juice, basil and a dash grenadine|700
+Mint Julep|Why not try herbal infused drink? A quick fix of Whiskey, mint, sugar and topped up with soda water|800
+Valley Bay|The best after dinner drink with a perfect mix of viceroy lemon juice, grated ginger, cinnamon, cloves and honey|800
+#Mocktails
+Apple Mojito|Ever wondered if mojito could be non-alcoholic? Try out our bartender’s special creation of Apple juice, mint, lemon juice and honey|500
+Kericho Cooler|A perfect mix of Pineapple juice, orange juice, ginger ale & cherries. Quite refreshing non-alcoholic drink to soothe your thirsty throat after your long day hustle|450
+Cinderella|A refreshing blend of pineapple juice, orange juice, and lemon juice topped up with soda water and dash of grenadine syrup|450
+Vine Fruit Mojito|A fruity blend of grapefruit juice, fresh mint and honey|450
+Bloody Mary|Quiche your thirst with a blend of vodka, lemon juice, tomato juice, tabasco, salt and a dash of Worcestershire sauce.|550
+High Ball|Sweet and whisky flavored cocktail topped with Giger ale.|550
+Gin and Tonic|A distinctive blend of Kenyan Gin and topped up with soda water with a lemon wedge.|650
+#Wines
+Aubergine House Wine By Bottle|3,600
+Aubergine House White Wine (By glass)|650
+Aubergine House Red Wine (By glass)|650
+Aubergine House Medium/ Sweet (By glass)|550
+#Beers
+Guarana|300
+Local Beers|350
+Black Ice|350
+Hunters|350
+Heineken|400
+Guinness|400
+Tusker Cider|400
+Savanna|400
+White Cap Crisps|400
+#Spirits
+~Order for any spirit by Bottle
+Gin – Gilbeys|200
+Gin – Gordons|200
+Gin – Tanqueray|250
+Gin – Caribia Gin|200
+Vodka – Smirnoff|200
+Vodka – Ciroc|250
+Whiskey – Jack Daniels|250
+Whiskey – J.W Red|200
+Whiskey – J.W Black|250
+Whiskey – J.W DBL|250
+Whiskey – Jameson|250
+Whiskey – Famous G|200
+Whiskey – VAT 69|200
+Whiskey – Single Malt Whiskeys|600
+Anis – Jagermeister|250
+Anis – Pernod|250
+Brandy – Viceroy|200
+Brandy – Courvoisier V.S.O.P|350
+Brandy – Hennessy V.S.O.P|400
+Brandy – Martell V.S.O.P|500
+Rum – Malibu|200
+Rum – Captain Morgan|250
+#Liqueur & Aperitifs
+Amarula|200
+Baileys|200
+Tia Maria|250
+Southern Comfort|200
+Martini Rosso|200
+Cinzano Rosso|250
+#Water, Energy & Sodas
+Water – Small|120
+Water – 1 Liter|180
+Energy Drink – Red Bull|350
+Energy Drink – Shark|350
+Sodas – Assorted|130
+Fresh Juice|Orange/ Mango/ Passion/ Cocktail|350`;
+const m=document.getElementById('m'),nav=document.getElementById('nav');let g,card,n=0;
+const e=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+D.split('\n').forEach(l=>{
+if(l[0]=='@'){n++;const h=document.createElement('section');h.id='g'+n;h.innerHTML='<h2>'+e(l.slice(1))+'</h2><div class="grid"></div>';m.appendChild(h);g=h.lastChild;
+nav.insertAdjacentHTML('beforeend','<a href="#g'+n+'">'+e(l.slice(1))+'</a>')}
+else if(l[0]=='#'){card=document.createElement('div');card.className='card';card.innerHTML='<h3>'+e(l.slice(1))+'</h3>';g.appendChild(card)}
+else if(l[0]=='~'){card.insertAdjacentHTML('beforeend','<div class="note">'+e(l.slice(1))+'</div>')}
+else if(l.trim()){const p=l.split('|'),pr=p.length==3?p[2]:p[1],ds=p.length==3?p[1]:'';
+card.insertAdjacentHTML('beforeend','<div class="it"><div class="r"><span>'+e(p[0])+'</span><i></i><b>'+(pr?'Ksh '+pr:'')+'</b></div>'+(ds?'<div class="d">'+e(ds)+'</div>':'')+'</div>')}
+});
+const q=document.getElementById('q'),nn=document.createElement('div');nn.id='none';nn.hidden=true;nn.textContent='No dishes or drinks match your search.';m.appendChild(nn);
+q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();let any=false;
+document.querySelectorAll('.card').forEach(c=>{const hm=c.querySelector('h3').textContent.toLowerCase().includes(v);let vis=0;
+c.querySelectorAll('.it').forEach(i=>{const ok=!v||hm||i.textContent.toLowerCase().includes(v);i.hidden=!ok;if(ok)vis++});
+c.querySelectorAll('.note').forEach(x=>x.hidden=!!v);c.hidden=!!v&&!vis});
+document.querySelectorAll('section').forEach(s=>{const sh=!!s.querySelector('.card:not([hidden])');s.hidden=!sh;if(sh)any=true});
+nn.hidden=any||!v});
+</script></body></html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aubergine Restaurant – Gallery</title>
+
+<style>
+/* ---------- COLOURS (change here) ---------- */
+:root{
+  --cream:#f6e6d3;   /* page background */
+  --paper:#fff9f1;   /* card background */
+  --ink:#2b1d1a;     /* text + card borders */
+  --red:#c8161d;
+  --green:#35a846;
+  --mut:#6b5a52;     /* grey-brown small text */
+  --card-w:240px;    /* card width */
+  --photo-h:270px;   /* photo height */
+  --gap:22px;        /* space between cards */
+  color-scheme:light;box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:70px;scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:Georgia,'Times New Roman',serif;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--cream);z-index:30}
+
+/* ---------- TOP BAR ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--cream);border-bottom:3px solid var(--green);display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 20px;overflow-x:auto;white-space:nowrap}
+.logo{font-size:1.5rem;color:#4a1d5c}
+.logo small{font:.55rem Arial,sans-serif;color:var(--green);letter-spacing:.3em;text-transform:uppercase;margin-left:6px}
+.top nav{display:flex;gap:18px}
+.top a{color:var(--ink);text-decoration:none;font:bold .78rem Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;border-bottom:2px solid transparent;padding-bottom:3px}
+.top a:hover{color:var(--red);border-color:var(--red)}
+
+/* ---------- HERO ---------- */
+.hero{max-width:1100px;margin:0 auto;padding:54px 20px 10px}
+.hero p{margin:0 0 6px;font:bold .8rem Arial,sans-serif;letter-spacing:.25em;text-transform:uppercase;color:var(--red)}
+.hero h1{margin:0;font-size:clamp(2.6rem,9vw,5.6rem);line-height:.95;font-weight:normal}
+.hero h1 em{color:var(--red)}
+
+/* ---------- SECTION HEADINGS ---------- */
+section{padding:46px 0 8px}
+.h{max-width:1100px;margin:0 auto 20px;padding:0 20px 10px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap}
+.h i{font:bold .9rem Arial,sans-serif;color:var(--red)}
+.h h2{margin:0;font-size:2rem;font-weight:normal}
+.h p{margin:0 0 0 auto;font-style:italic;color:var(--mut);font-size:.95rem}
+
+/* ---------- SLIDING ROW (right to left) ---------- */
+.row{overflow:hidden;padding:6px 0 14px}
+.track{display:flex;width:max-content;animation:slide 40s linear infinite}   /* 40s = speed, bigger = slower */
+.row:hover .track{animation-play-state:paused}
+.set{display:flex;padding-left:var(--gap)}   /* space before the first card */
+.set .c:last-child{margin-right:0}
+@keyframes slide{to{transform:translateX(-50%)}}
+
+/* ---------- CARD ---------- */
+.c{margin:0 var(--gap) 0 0;width:var(--card-w);flex:none;background:var(--paper);border-radius:2px;overflow:hidden}
+.ph{height:var(--photo-h);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.slot{background:repeating-linear-gradient(135deg,#f3e2cf 0 10px,#f8ecdd 10px 20px)}
+.slot span{font:bold .72rem Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#a58369}
+figcaption{display:grid;grid-template-columns:auto 1fr;gap:2px 10px;margin:0;padding:12px 14px 14px;align-items:baseline}
+figcaption b{font:bold .8rem Arial,sans-serif;color:var(--red)}
+figcaption span{font-size:1.15rem}
+figcaption em{grid-column:2;font:.8rem Arial,sans-serif;color:var(--mut)}
+
+footer{margin-top:50px;background:var(--green);color:#fff;text-align:center;padding:22px 16px;font:.85rem Arial,sans-serif;letter-spacing:.04em}
+
+@media(prefers-reduced-motion:reduce){.track{animation:none}.row{overflow-x:auto}.set.clone{display:none}}
+@media(max-width:600px){:root{--card-w:210px;--photo-h:240px}.h p{margin-left:0;width:100%}}
+</style>
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<header class="top">
+  <div class="logo">aubergine<small>Restaurant</small></div>
+  <nav><a href="#vibe">Vibe</a><a href="#cocktails">Cocktails</a><a href="#food">Foods &amp; Drinks</a><a href="#pizza">Pizza</a></nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<div class="hero"><p>Kericho Cuisine Stop</p><h1>The <em>gallery</em></h1></div>
+
+
+<!-- ================= 01 VIBE =================
+  One card per line:  photo file | number | title | small line  -->
+<section id="vibe">
+  <div class="h"><h2>Vibe</h2><p>The room, the people, the evening</p></div>
+  <div class="row"><div class="track"><div class="set">
+<figure class="c"><div class="ph"><img src="public/vibe-1.jpg" alt="Interior"></div><figcaption><span>Interior</span><em>Dining area</em></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/vibe-2.jpg" alt="Bar"></div><figcaption><span>Interior</span><em>Table setting</em></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/vibe-3.jpg" alt="Table setting"></div><figcaption><span>Table setting</span><em>Before service</em></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/vibe-4.jpg" alt="Guests"></div><figcaption><span>Team</span><em>Our chef</em></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/vibe-5.jpg" alt="Staff at work"></div><figcaption><span>A spot</span><em>The view</em></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/vibe-6.jpg" alt="Exterior"></div><figcaption><span>Interior</span><em>Kericho, Kenya</em></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/vibe-7.jpg" alt="Full 4-seater table feast"></div><figcaption><span>Family feast</span><em>Dining area</em></figcaption></figure>
+  </div></div></div>
+</section>
+
+
+<!-- ================= 02 COCKTAILS ================= -->
+<section id="cocktails">
+  <div class="h"><h2>Cocktails</h2><p>Shaken, stirred and poured</p></div>
+  <div class="row"><div class="track" style="animation-duration:44s"><div class="set">
+<figure class="c"><div class="ph"><img src="public/cocktail-1.jpg" alt="Signature 4-seater cocktail"></div><figcaption><span>Signature 4-seater cocktail</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/cocktail-2.jpg" alt="Martini glass"></div><figcaption><span>Martini glass</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/cocktail-3.jpg" alt="Iced mocktail"></div><figcaption><span>Iced mocktail</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/cocktail-4.jpg" alt="Chocolate shake"></div><figcaption><span>Chocolate shake</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/cocktail-5.jpg" alt="Orange cocktail"></div><figcaption><span>Orange cocktail</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/cocktail-6.jpg" alt="On the rocks"></div><figcaption><span>On the rocks</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/cocktail-7.jpg" alt="Red sangria cocktail"></div><figcaption><span>Red sangria cocktail</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/cocktail-8.jpg" alt="Double layered cocktail"></div><figcaption><span>Double layered cocktail</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/cocktail-9.jpg" alt="Layered cocktail"></div><figcaption><span>Layered cocktail</span></figcaption></figure>
+  </div></div></div>
+</section>
+
+
+<!-- ================= 03 FOODS & DRINKS ================= -->
+<section id="food">
+  <div class="h"><h2>Foods &amp; Drinks</h2><p>From the kitchen and the counter</p></div>
+  <div class="row"><div class="track" style="animation-duration:48s"><div class="set">
+<figure class="c"><div class="ph"><img src="public/food-1.jpg" alt="Tuna Avocado Salad"></div><figcaption><span>Tuna Avocado Salad</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/food-2.jpg" alt="English Breakfast"></div><figcaption><span>Grilled Lobster Feast</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/food-3.jpg" alt="Roast Chicken Dinner"></div><figcaption><span>Roast chicken Dinner</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/food-4.jpg" alt="English breakfast"></div><figcaption><span>English breakfast</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/food-5.jpg" alt="Mursik Breakfast"></div><figcaption><span>Mursik Breakfast</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/food-6.jpg" alt="Grilled Lobster"></div><figcaption><span>Grilled Lobster</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/food-7.jpg" alt="Steak & rosti plate"></div><figcaption><span>Steak & rosti plate</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/food-8.jpg" alt="Chapati/wedges spread cleaned"></div><figcaption><span>Chapati/wedges spread cleaned</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/food-13.jpg" alt="Grilled seafood"></div><figcaption><span>Grilled seafood</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/food-17.jpg" alt="Seasoned potato wedges"></div><figcaption><span>Seasoned potato wedges</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/food-18.jpg" alt="Steak medallions with mash"></div><figcaption><span>Steak</span></figcaption></figure>
+  </div></div></div>
+  <div class="row"><div class="track" style="animation-duration:48s"><div class="set">
+    <figure class="c"><div class="ph"><img src="public/food-9.jpg" alt="Champagne pour"></div><figcaption><span>Champagne pour</span></figcaption></figure>
+    <figure class="c"><div class="ph"><img src="public/food-10.jpg" alt="Bloody Mary"></div><figcaption><span>Bloody Mary</span></figcaption></figure>
+    <figure class="c"><div class="ph"><img src="public/food-11.jpg" alt="Oreo mini cheesecakes"></div><figcaption><span>Oreo mini cheesecakes</span></figcaption></figure>
+    <figure class="c"><div class="ph"><img src="public/food-12.jpg" alt="Coffee cup"></div><figcaption><span>Coffee cup</span></figcaption></figure>
+    <figure class="c"><div class="ph"><img src="public/food-14.jpg" alt="Cappuccino Latte"></div><figcaption><span>Cappuccino Latte</span></figcaption></figure>
+    <figure class="c"><div class="ph"><img src="public/food-15.jpg" alt="Fresh fruit salad with Vanilla icecream"></div><figcaption><span>Fresh fruit salad with vanilla icecream</span></figcaption></figure>
+    <figure class="c"><div class="ph"><img src="public/food-16.jpg" alt="Pumpkin Soup"></div><figcaption><span>Pumpkin Soup</span></figcaption></figure>
+  </div></div></div>
+</section>
+
+
+<!-- ================= 04 PIZZA ================= -->
+<section id="pizza">
+  <div class="h"><h2>Pizza</h2><p>Wood-fire feel, Kericho style</p></div>
+  <div class="row"><div class="track" style="animation-duration:42s"><div class="set">
+<figure class="c"><div class="ph"><img src="public/pizza-1.jpg" alt="House pizza"></div><figcaption><span>House pizza</span><em>Pizza ·</em></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/pizza-2.jpg" alt="Hawaiian"></div><figcaption><span>Hawaiian</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/pizza-3.jpg" alt="Mexicana"></div><figcaption><span>Mexicana</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/pizza-4.jpg" alt="Polo"></div><figcaption><span>Polo</span><em>Ksh 950</em></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/pizza-5.jpg" alt="Berbecue"></div><figcaption><span>Berbecue</span></figcaption></figure>
+<figure class="c"><div class="ph"><img src="public/pizza-6.jpg" alt="Pepperoni"></div><figcaption><span>Pepperoni</span></figcaption></figure>
+  </div></div></div>
+</section>
+
+<footer>Aubergine Restaurant · Kericho, Kenya</footer>
+
+
+<!-- ================= SCRIPT (no need to edit) =================
+  1) copies each row of cards once so the slide loops without a gap
+  2) if a photo file is missing, shows the "Photo slot" box instead -->
+<script>
+document.querySelectorAll('.track').forEach(function(t){
+  var c=t.firstElementChild.cloneNode(true);
+  c.className='set clone'; c.setAttribute('aria-hidden','true'); t.appendChild(c);
+});
+function slot(img){var p=img.parentNode;p.classList.add('slot');p.innerHTML='<span>Photo slot</span>';}
+document.querySelectorAll('.ph img').forEach(function(img){
+  img.addEventListener('error',function(){slot(img)});
+  if(img.complete&&!img.naturalWidth)slot(img);
+});
+</script>
+</body>
+</html>
