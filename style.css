@@ -255,3 +255,21 @@ button:focus,
   box-shadow: none !important;
   opacity: 1 !important;
 }
+.call-btn{
+  display:inline-block;
+  margin-left:8px;
+  padding:4px 12px;
+  background:#111;
+  color:#fff !important;
+  font-size:.8rem;
+  font-weight:700;
+  text-decoration:none;
+  border-radius:20px;
+  border:1px solid #111;
+  vertical-align:middle;
+}
+.call-btn:hover{
+  background:#111 !important;
+  color:#fff !important;
+}
+
