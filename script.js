@@ -1,20 +1,4 @@
 (function(){
- var box=document.getElementById('stars'),rating=0,btns=[];
- for(var i=1;i<=5;i++){(function(n){
-  var b=document.createElement('button');b.type='button';b.textContent='\u2606';
-  b.setAttribute('role','radio');b.setAttribute('aria-label',n+' star'+(n>1?'s':''));
-  b.addEventListener('click',function(){rating=n;btns.forEach(function(x,k){x.textContent=k<n?'\u2605':'\u2606';x.classList.toggle('on',k<n)})});
-  box.appendChild(b);btns.push(b)})(i)}
- document.getElementById('fb').addEventListener('submit',function(e){
-  e.preventDefault();
-  var m=document.getElementById('meal');
-  if(!m.value){m.focus();return}
-  this.style.display='none';
-  var t=document.getElementById('thanks');t.classList.add('show');t.focus();
- });
-})();
-
-(function(){
  var g=document.getElementById('igrid'),b=document.getElementById('more-btn');
  if(!g||!b)return;
  b.addEventListener('click',function(){
@@ -43,7 +27,7 @@
  });
 })();
 (function(){
- var RESERVE_EMAIL='hello@aubergine-kericho.co.ke';
+ var RESERVE_EMAIL='navajkerrie@gmail.com';
  var f=document.getElementById('rform');if(!f)return;
  var d=document.getElementById('rdate'),t=new Date();
  d.min=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
