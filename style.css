@@ -234,7 +234,7 @@ nav ul{grid-column:3;justify-self:end}
 .rform{position:relative;z-index:1;width:100%;background:rgba(52,23,58,.85);border-radius:10px;padding:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .rform h3{grid-column:1/-1;color:var(--lime);font-size:1.5rem}
 .rform label{display:block;margin:0 0 4px;color:var(--cream);font-size:.78rem}
-.rform .btn{grid-column:1/-1;border:0;cursor:pointer;width:100%}
+.rform .btn{grid-column:1/-1;border:0;cursor:pointer;width:100%;background:#d1caca;color:var(--plum);font:600 .9rem Jost,Arial,sans-serif;padding:10px 22px;border-radius:6px;text-decoration:none}
 .rform .rmsg{grid-column:1/-1;font-size:.85rem;color:var(--cream);display:none}
 .rform .rmsg.show{display:block}
 .legal .acc{background:var(--plum);color:var(--cream);margin-top:8px}
