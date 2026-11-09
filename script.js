@@ -73,3 +73,19 @@ const observer = new IntersectionObserver((entries) => {
 
 counters.forEach(c => observer.observe(c));
 })();
+
+/* Homepage menu highlights: loaded from data/menu.json (edited in admin.html).
+   The HTML already in index.html stays as the fallback if the file can't be loaded. */
+(function(){
+ var box=document.querySelector('.menu .mcols');
+ if(!box||!window.fetch)return;
+ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+ fetch('data/menu.json',{cache:'no-cache'}).then(function(r){return r.ok?r.json():Promise.reject()}).then(function(j){
+  if(!j||!Array.isArray(j.home)||!j.home.length)return;
+  box.innerHTML=j.home.map(function(c){
+   return '<div class="mcol"><h3>'+esc(c.title)+'</h3>'+(c.items||[]).map(function(i){
+    return '<div class="item"><b>'+esc(i.name)+'</b><i class="pr" style="font-style:normal">'+(i.price?'Ksh '+esc(i.price):'')+'</i>'+(i.desc?'<span>'+esc(i.desc)+'</span>':'')+'</div>';
+   }).join('')+'</div>';
+  }).join('');
+ }).catch(function(){});
+})();

@@ -44,7 +44,7 @@ footer{text-align:center;padding:26px 16px 36px;color:#fff;background:var(--gree
 <div id="bar"><nav id="nav"></nav><div id="sw"><h3>Search the Menu...</h3><input id="q" type="search" placeholder="eg. Samosa, Pizza, Eggs etc.." aria-label="Search the menu"></div></div><main id="m"></main>
 <footer>All prices are in Kenya Shillings and include value added tax and catering levy.</footer>
 <script>
-const D=`@Breakfast & Hot Drinks
+const FALLBACK=`@Breakfast & Hot Drinks
 #Breakfast
 Breakfast|Eggs, sausage, bacon, toast, juice, tea/coffee/hot chocolate/fruits|1,250
 Eggs (Plain omelette, Fried)|150
@@ -309,8 +309,10 @@ Energy Drink – Red Bull|350
 Energy Drink – Shark|350
 Sodas – Assorted|130
 Fresh Juice|Orange/ Mango/ Passion/ Cocktail|350`;
-const m=document.getElementById('m'),nav=document.getElementById('nav');let g,card,n=0;
+const q=document.getElementById('q');
+const m=document.getElementById('m'),nav=document.getElementById('nav');let g,card,n=0,nn;
 const e=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function render(D){m.innerHTML='';nav.innerHTML='';n=0;
 D.split('\n').forEach(l=>{
 if(l[0]=='@'){n++;const h=document.createElement('section');h.id='g'+n;h.innerHTML='<h2>'+e(l.slice(1))+'</h2><div class="grid"></div>';m.appendChild(h);g=h.lastChild;
 nav.insertAdjacentHTML('beforeend','<a href="#g'+n+'">'+e(l.slice(1))+'</a>')}
@@ -319,7 +321,10 @@ else if(l[0]=='~'){card.insertAdjacentHTML('beforeend','<div class="note">'+e(l.
 else if(l.trim()){const p=l.split('|'),pr=p.length==3?p[2]:p[1],ds=p.length==3?p[1]:'';
 card.insertAdjacentHTML('beforeend','<div class="it"><div class="r"><span>'+e(p[0])+'</span><i></i><b>'+(pr?'Ksh '+pr:'')+'</b></div>'+(ds?'<div class="d">'+e(ds)+'</div>':'')+'</div>')}
 });
-const q=document.getElementById('q'),nn=document.createElement('div');nn.id='none';nn.hidden=true;nn.textContent='No dishes or drinks match your search.';m.appendChild(nn);
+nn=document.createElement('div');nn.id='none';nn.hidden=true;nn.textContent='No dishes or drinks match your search.';m.appendChild(nn);
+if(q.value)q.dispatchEvent(new Event('input'))}
+/* The menu is loaded from data/menu.json (edited in admin.html). FALLBACK above is only used if that file can't be loaded. */
+fetch('data/menu.json',{cache:'no-cache'}).then(r=>r.ok?r.json():Promise.reject()).then(j=>{if(!j||typeof j.menu!=='string'||!j.menu.trim())throw 0;render(j.menu)}).catch(()=>render(FALLBACK));
 q.addEventListener('input',()=>{const v=q.value.trim().toLowerCase();let any=false;
 document.querySelectorAll('.card').forEach(c=>{const hm=c.querySelector('h3').textContent.toLowerCase().includes(v);let vis=0;
 c.querySelectorAll('.it').forEach(i=>{const ok=!v||hm||i.textContent.toLowerCase().includes(v);i.hidden=!ok;if(ok)vis++});

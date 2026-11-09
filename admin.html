@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Aubergine Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--plum:#34173A;--plum2:#4D2954;--mauve:#7A4A80;--cream:#F0EAE3;--cream2:#E6DDD3;--lime:#CDEB8B;--ink:#2A1430;--line:#cfc3cd;--danger:#a23b3b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.45 Arial,Helvetica,sans-serif;padding-bottom:96px}
+h1,h2,h3,button,.tabs button{font-family:Jost,"Futura","Century Gothic",Arial,sans-serif}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--mauve);outline-offset:2px}
+input,select{font:inherit;font-size:.92rem;color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px 10px;width:100%;min-width:0}
+input:focus{border-color:var(--plum)}
+label{display:block;font-weight:600;font-size:.82rem;margin:14px 0 4px}
+button{cursor:pointer;font-size:.9rem}
+.btn{background:var(--plum);color:var(--cream);border:0;border-radius:6px;padding:10px 20px;font-weight:600}
+.btn:disabled{opacity:.5;cursor:default}
+.btn.ghost{background:transparent;color:var(--plum);border:2px solid var(--plum);padding:8px 16px}
+.btn.small{padding:6px 12px;font-size:.82rem}
+
+/* login */
+#login{max-width:440px;margin:8vh auto 0;padding:0 20px}
+#login h1{font-size:2rem;color:var(--plum);margin:0 0 4px;font-weight:500}
+#login p.lead{margin:0 0 18px;color:#5b4660;font-size:.92rem}
+#login .btn{width:100%;margin-top:20px}
+.err{background:#f6e0e0;color:#6b1f1f;border-radius:6px;padding:10px 12px;margin-top:14px;font-size:.88rem}
+details.help{margin-top:22px;font-size:.85rem;color:#4a3550}
+details.help summary{cursor:pointer;font-weight:600;color:var(--plum)}
+details.help ol{padding-left:20px;margin:8px 0 0}
+details.help li{margin-bottom:6px}
+
+/* app */
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--plum);color:var(--cream);display:flex;align-items:center;gap:14px;padding:12px 20px}
+header.bar h1{font-size:1.15rem;font-weight:500;margin:0;letter-spacing:.03em;flex:1}
+header.bar a,header.bar button{color:var(--cream);font-size:.85rem}
+header.bar button{background:none;border:1px solid var(--lime);border-radius:6px;padding:6px 12px;color:var(--lime)}
+main{max-width:980px;margin:0 auto;padding:18px 16px}
+.tabs{display:flex;gap:6px;border-bottom:2px solid var(--cream2);margin-bottom:16px}
+.tabs button{background:none;border:0;padding:10px 16px;font-weight:600;color:#6d5772;border-bottom:3px solid transparent;margin-bottom:-2px}
+.tabs button[aria-selected=true]{color:var(--plum);border-color:var(--plum)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.tools input{max-width:340px}
+.hint{font-size:.84rem;color:#5b4660;margin:0 0 14px}
+
+.sec{background:#fff;border:1px solid var(--line);border-radius:10px;margin-bottom:12px;overflow:hidden}
+.sec-head{display:flex;gap:8px;align-items:center;padding:10px 12px;background:var(--cream2)}
+.sec-head .tg{background:none;border:0;font-size:1rem;width:28px;color:var(--plum)}
+.sec-head input{font:500 1.1rem Jost,Arial,sans-serif;background:transparent;border-color:transparent;color:var(--plum)}
+.sec-head input:hover,.sec-head input:focus{background:#fff;border-color:var(--line)}
+.sec-body{padding:6px 14px 16px}
+.card{border-top:1px solid var(--cream2);padding-top:14px;margin-top:12px}
+.card:first-child{border-top:0;margin-top:0}
+.card-head{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.card-head input{font-weight:700;color:var(--plum)}
+.ctl{display:flex;gap:4px;flex:none}
+.ib{background:#fff;border:1px solid var(--line);border-radius:6px;width:32px;height:32px;padding:0;color:var(--plum);line-height:1}
+.ib:hover{background:var(--cream2)}
+.ib.del{color:var(--danger)}
+.row{display:grid;grid-template-columns:1fr 140px auto;gap:6px 8px;align-items:center;padding:8px 0;border-bottom:1px dashed var(--cream2)}
+.row .ds{grid-column:1/3}
+.row .ctl{grid-row:1;grid-column:3}
+.row.note{grid-template-columns:auto 1fr auto}
+.row.note b{font-size:.75rem;color:var(--mauve)}
+.pw{display:flex;align-items:center;gap:6px}
+.pw span{font-size:.8rem;color:#6d5772}
+.pw input{text-align:right}
+.adds{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.empty{color:#6d5772;font-style:italic;padding:12px 0}
+
+#savebar{position:fixed;left:0;right:0;bottom:0;z-index:10;background:#fff;border-top:1px solid var(--line);padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px));display:flex;gap:12px;align-items:center;justify-content:flex-end}
+#status{margin-right:auto;font-size:.88rem;color:#4a3550}
+#savebar.dirty #status{color:var(--danger);font-weight:600}
+#lock{position:fixed;inset:0;background:rgba(240,234,227,.97);z-index:50;display:none;overflow:auto}
+#lock.show{display:block}
+#lock .note{max-width:440px;margin:8vh auto 0;padding:0 20px;color:var(--plum)}
+
+@media(max-width:640px){
+ .row{grid-template-columns:1fr 110px}
+ .row .ds{grid-column:1/-1}
+ .row .ctl{grid-row:3;grid-column:1/-1;justify-content:flex-end}
+ .row.note{grid-template-columns:1fr}
+ .sec-head,.card-head{flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<noscript><p style="padding:20px">This page needs JavaScript.</p></noscript>
+
+<!-- ============ SIGN IN ============ -->
+<section id="login">
+  <h1>Aubergine admin</h1>
+  <p class="lead">Owner access only. Signing in needs the owner's GitHub access key, so nobody else can change the website.</p>
+  <form id="lf" autocomplete="off">
+    <label for="repo">GitHub repository</label>
+    <input id="repo" placeholder="your-username/aubergine-site" required spellcheck="false" autocapitalize="off">
+    <label for="branch">Branch</label>
+    <input id="branch" value="main" required spellcheck="false" autocapitalize="off">
+    <label for="token">Access key (token)</label>
+    <input id="token" type="password" placeholder="github_pat_…" required spellcheck="false" autocomplete="off">
+    <button class="btn" type="submit" id="lbtn">Sign in</button>
+    <div class="err" id="lerr" role="alert" hidden></div>
+  </form>
+  <details class="help">
+    <summary>How do I get the access key?</summary>
+    <ol>
+      <li>On GitHub, open <b>Settings → Developer settings → Personal access tokens → Fine-grained tokens → Generate new token</b>.</li>
+      <li>Under <b>Repository access</b> choose <b>Only select repositories</b> and pick just this website's repository.</li>
+      <li>Under <b>Permissions → Repository permissions</b> set <b>Contents</b> to <b>Read and write</b>. Nothing else.</li>
+      <li>Set an expiry date, generate, and copy the key. Paste it here. It is kept only while this tab is open and is never stored on the website.</li>
+    </ol>
+  </details>
+</section>
+
+<!-- ============ EDITOR ============ -->
+<div id="app" hidden>
+  <header class="bar">
+    <h1>Aubergine admin</h1>
+    <a href="aubergine-menu.html" target="_blank" rel="noopener">View live menu</a>
+    <button type="button" id="out">Sign out</button>
+  </header>
+  <main>
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" id="t-menu" aria-selected="true">Full menu</button>
+      <button type="button" role="tab" id="t-home" aria-selected="false">Homepage highlights</button>
+    </div>
+
+    <div id="p-menu">
+      <p class="hint">This is the menu shown on the Menu page. Prices are in Ksh. Changes go live about a minute after you press Save.</p>
+      <div class="tools"><input id="filter" type="search" placeholder="Search items…" aria-label="Search items"></div>
+      <div id="menuRoot"></div>
+    </div>
+
+    <div id="p-home" hidden>
+      <p class="hint">The three short lists in the “Our menu” section on the homepage.</p>
+      <div id="homeRoot"></div>
+    </div>
+  </main>
+  <div id="savebar">
+    <span id="status" role="status">No changes</span>
+    <button type="button" class="btn ghost small" id="backup">Download backup</button>
+    <button type="button" class="btn" id="save" disabled>Save changes</button>
+  </div>
+</div>
+
+<div id="lock"><div class="note"><h1 style="font-weight:500">Signed out</h1><p>You were signed out after 30 minutes of inactivity. Your unsaved edits are still here. Sign in again to continue.</p><button class="btn" type="button" id="relogin">Sign in again</button></div></div>
+
+<script>
+(function(){
+'use strict';
+var PATH='data/menu.json', IDLE_MS=30*60*1000;
+var $=function(s){return document.querySelector(s)};
+
+/* ---------- tiny DOM helper (all data goes in via textContent/value, never innerHTML) ---------- */
+function h(tag,props){
+  var e=document.createElement(tag);
+  for(var k in (props||{})){var v=props[k];
+    if(k==='class')e.className=v;
+    else if(k==='value')e.value=v;
+    else if(k.indexOf('on')===0)e.addEventListener(k.slice(2),v);
+    else e.setAttribute(k,v);
+  }
+  for(var i=2;i<arguments.length;i++){var c=arguments[i];if(c==null||c===false)continue;
+    (Array.isArray(c)?c:[c]).forEach(function(x){e.append(x&&x.nodeType?x:document.createTextNode(x))});}
+  return e;
+}
+function ib(label,title,fn,cls){return h('button',{type:'button',class:'ib '+(cls||''),title:title,'aria-label':title,onclick:fn},label)}
+
+/* ---------- menu text <-> structure (same format the Menu page reads) ---------- */
+function parseMenu(D){
+  var secs=[],sec=null,card=null;
+  function ensure(){if(!sec){sec={title:'Menu',cards:[]};secs.push(sec)}if(!card){card={title:'Items',rows:[]};sec.cards.push(card)}}
+  String(D).split('\n').forEach(function(l){
+    if(l[0]==='@'){sec={title:l.slice(1).trim(),cards:[]};secs.push(sec);card=null}
+    else if(l[0]==='#'){if(!sec){sec={title:'Menu',cards:[]};secs.push(sec)}card={title:l.slice(1).trim(),rows:[]};sec.cards.push(card)}
+    else if(l[0]==='~'){ensure();card.rows.push({k:'n',text:l.slice(1).trim()})}
+    else if(l.trim()){ensure();var p=l.split('|');
+      card.rows.push({k:'i',name:p[0].trim(),desc:(p.length===3?p[1]:'').trim(),price:((p.length===3?p[2]:p[1])||'').trim()})}
+  });
+  return secs;
+}
+function clean(s){return String(s==null?'':s).replace(/[|\r\n]+/g,' ').replace(/^[@#~\s]+/,'').trim()}
+function serializeMenu(secs){
+  var out=[];
+  secs.forEach(function(s){
+    out.push('@'+(clean(s.title)||'Untitled'));
+    s.cards.forEach(function(c){
+      out.push('#'+(clean(c.title)||'Untitled'));
+      c.rows.forEach(function(r){
+        if(r.k==='n'){var t=clean(r.text);if(t)out.push('~'+t)}
+        else{var n=clean(r.name);if(!n)return;var d=clean(r.desc),p=clean(r.price);out.push(d?n+'|'+d+'|'+p:n+'|'+p)}
+      });
+    });
+  });
+  return out.join('\n');
+}
+function serializeHome(cols){
+  return cols.map(function(c){return{title:clean(c.title)||'Untitled',items:c.items.filter(function(i){return clean(i.name)}).map(function(i){
+    return{name:clean(i.name),desc:clean(i.desc),price:clean(i.price)}})}});
+}
+function fmtPrice(v){
+  v=String(v).replace(/ksh|kes|\/=|\s/ig,'');
+  if(/^[\d,]+$/.test(v)&&v.replace(/,/g,'')!==''){return Number(v.replace(/,/g,'')).toLocaleString('en-US')}
+  return v;
+}
+
+/* ---------- GitHub (this is what makes it owner-only) ---------- */
+var session=null; // {repo,branch,token}
+var state=null;   // {raw,sha,secs,home,dirty}
+function gh(method,path,body){
+  return fetch('https://api.github.com'+path,{method:method,
+    headers:{'Authorization':'Bearer '+session.token,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'},
+    body:body?JSON.stringify(body):undefined,cache:'no-store'});
+}
+function fromB64(b){var bin=atob(b.replace(/\s/g,''));var arr=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)arr[i]=bin.charCodeAt(i);return new TextDecoder().decode(arr)}
+function toB64(str){var arr=new TextEncoder().encode(str),bin='';for(var i=0;i<arr.length;i+=8192)bin+=String.fromCharCode.apply(null,arr.subarray(i,i+8192));return btoa(bin)}
+
+async function loadFile(){
+  var r=await gh('GET','/repos/'+session.repo+'/contents/'+PATH+'?ref='+encodeURIComponent(session.branch));
+  if(r.status===404)throw new Error('data/menu.json was not found on branch “'+session.branch+'”. Upload the data folder to the repository first.');
+  if(!r.ok)throw new Error('Could not load the menu file (error '+r.status+').');
+  var j=await r.json(),raw=JSON.parse(fromB64(j.content));
+  if(typeof raw.menu!=='string')throw new Error('menu.json is not in the expected format.');
+  state={raw:raw,sha:j.sha,secs:parseMenu(raw.menu),home:JSON.parse(JSON.stringify(Array.isArray(raw.home)?raw.home:[])),dirty:false};
+}
+
+async function signIn(repo,branch,token){
+  session={repo:repo,branch:branch,token:token};
+  var r=await gh('GET','/repos/'+repo);
+  if(r.status===401)throw new Error('That access key was not accepted.');
+  if(r.status===404)throw new Error('Repository not found, or this key has no access to it. Check the name (owner/repo) and the key’s repository access.');
+  if(!r.ok)throw new Error('GitHub returned an error ('+r.status+').');
+  var j=await r.json();
+  if(!j.permissions||!j.permissions.push)throw new Error('This key can read the repository but not change it. Give it “Contents: Read and write”.');
+  if(!state)await loadFile();
+}
+
+/* ---------- editor ---------- */
+var openSecs={0:true};
+function markDirty(){
+  if(!state)return;state.dirty=true;
+  $('#savebar').classList.add('dirty');$('#status').textContent='Unsaved changes';$('#save').disabled=false;
+}
+function move(arr,i,d){var j=i+d;if(j<0||j>=arr.length)return;var t=arr[i];arr[i]=arr[j];arr[j]=t;markDirty();render()}
+function remove(arr,i,what){if(!confirm('Delete '+what+'?'))return;arr.splice(i,1);markDirty();render()}
+
+function itemRow(arr,i,withDesc){
+  var r=arr[i];
+  var name=h('input',{class:'nm',value:r.name,placeholder:'Item name','aria-label':'Item name',maxlength:'120',oninput:function(e){r.name=e.target.value;markDirty()}});
+  var price=h('input',{class:'pr',value:r.price,placeholder:'0',inputmode:'numeric','aria-label':'Price in Ksh',maxlength:'12',oninput:function(){markDirty()},
+    onchange:function(e){r.price=fmtPrice(e.target.value);e.target.value=r.price;markDirty()}});
+  price.addEventListener('input',function(e){r.price=e.target.value});
+  var desc=h('input',{class:'ds',value:r.desc||'',placeholder:'Description (optional)','aria-label':'Description',maxlength:'300',oninput:function(e){r.desc=e.target.value;markDirty()}});
+  return h('div',{class:'row'},name,h('div',{class:'pw'},h('span',{},'Ksh'),price),desc,
+    h('div',{class:'ctl'},ib('↑','Move up',function(){move(arr,i,-1)}),ib('↓','Move down',function(){move(arr,i,1)}),ib('✕','Delete item',function(){remove(arr,i,'“'+(r.name||'this item')+'”')},'del')));
+}
+function noteRow(arr,i){
+  var r=arr[i];
+  return h('div',{class:'row note'},h('b',{},'NOTE'),
+    h('input',{value:r.text,placeholder:'Note shown under the category heading','aria-label':'Note',maxlength:'200',oninput:function(e){r.text=e.target.value;markDirty()}}),
+    h('div',{class:'ctl'},ib('↑','Move up',function(){move(arr,i,-1)}),ib('↓','Move down',function(){move(arr,i,1)}),ib('✕','Delete note',function(){remove(arr,i,'this note')},'del')));
+}
+
+function renderMenu(){
+  var root=$('#menuRoot');root.textContent='';
+  var q=($('#filter').value||'').trim().toLowerCase();
+  state.secs.forEach(function(s,si){
+    var isOpen=!!openSecs[si]||!!q,body=h('div',{class:'sec-body'});
+    if(!isOpen)body.hidden=true;
+    var shown=0;
+    s.cards.forEach(function(c,ci){
+      var cardMatch=!q||c.title.toLowerCase().indexOf(q)>-1,rows=[];
+      c.rows.forEach(function(r,ri){
+        if(q&&!cardMatch&&!(r.k==='i'&&((r.name||'')+' '+(r.desc||'')).toLowerCase().indexOf(q)>-1))return;
+        rows.push(r.k==='n'?noteRow(c.rows,ri):itemRow(c.rows,ri));
+      });
+      if(q&&!rows.length&&!cardMatch)return;
+      shown++;
+      body.append(h('div',{class:'card'},
+        h('div',{class:'card-head'},
+          h('input',{value:c.title,'aria-label':'Category name',maxlength:'80',oninput:function(e){c.title=e.target.value;markDirty()}}),
+          h('div',{class:'ctl'},ib('↑','Move category up',function(){move(s.cards,ci,-1)}),ib('↓','Move category down',function(){move(s.cards,ci,1)}),ib('✕','Delete category',function(){remove(s.cards,ci,'the category “'+c.title+'” and all its items')},'del'))),
+        rows,
+        h('div',{class:'adds'},
+          h('button',{type:'button',class:'btn ghost small',onclick:function(){c.rows.push({k:'i',name:'',desc:'',price:''});markDirty();openSecs[si]=true;render()}},'+ Add item'),
+          h('button',{type:'button',class:'btn ghost small',onclick:function(){c.rows.push({k:'n',text:''});markDirty();render()}},'+ Add note'))));
+    });
+    if(q&&!shown)return;
+    if(!q)body.append(h('div',{class:'adds'},h('button',{type:'button',class:'btn ghost small',onclick:function(){s.cards.push({title:'New category',rows:[]});markDirty();openSecs[si]=true;render()}},'+ Add category')));
+    var tg=h('button',{type:'button',class:'tg','aria-expanded':String(isOpen),'aria-label':'Show or hide section',onclick:function(){openSecs[si]=!openSecs[si];render()}},isOpen?'▾':'▸');
+    root.append(h('div',{class:'sec'},
+      h('div',{class:'sec-head'},tg,
+        h('input',{value:s.title,'aria-label':'Section name',maxlength:'80',oninput:function(e){s.title=e.target.value;markDirty()}}),
+        h('div',{class:'ctl'},ib('↑','Move section up',function(){move(state.secs,si,-1)}),ib('↓','Move section down',function(){move(state.secs,si,1)}),ib('✕','Delete section',function(){remove(state.secs,si,'the section “'+s.title+'” and everything in it')},'del'))),
+      body));
+  });
+  if(!q)root.append(h('button',{type:'button',class:'btn ghost',onclick:function(){state.secs.push({title:'New section',cards:[{title:'New category',rows:[]}]});openSecs[state.secs.length-1]=true;markDirty();render()}},'+ Add section'));
+  if(q&&!root.children.length)root.append(h('p',{class:'empty'},'No items match your search.'));
+}
+
+function renderHome(){
+  var root=$('#homeRoot');root.textContent='';
+  state.home.forEach(function(c,ci){
+    var body=h('div',{class:'sec-body'});
+    c.items=c.items||[];
+    c.items.forEach(function(it,ii){body.append(itemRow(c.items,ii))});
+    body.append(h('div',{class:'adds'},h('button',{type:'button',class:'btn ghost small',onclick:function(){c.items.push({name:'',desc:'',price:''});markDirty();render()}},'+ Add item')));
+    root.append(h('div',{class:'sec'},
+      h('div',{class:'sec-head'},
+        h('input',{value:c.title,'aria-label':'List heading',maxlength:'60',oninput:function(e){c.title=e.target.value;markDirty()}}),
+        h('div',{class:'ctl'},ib('↑','Move list left',function(){move(state.home,ci,-1)}),ib('↓','Move list right',function(){move(state.home,ci,1)}),ib('✕','Delete list',function(){remove(state.home,ci,'the list “'+c.title+'”')},'del'))),
+      body));
+  });
+  root.append(h('button',{type:'button',class:'btn ghost',onclick:function(){state.home.push({title:'New list',items:[]});markDirty();render()}},'+ Add list'));
+}
+function render(){renderMenu();renderHome()}
+
+/* ---------- save / backup ---------- */
+function currentData(){
+  return Object.assign({},state.raw,{menu:serializeMenu(state.secs),home:serializeHome(state.home),updated:new Date().toISOString()});
+}
+var saving=false;
+async function save(){
+  if(saving||!state||!session)return;
+  saving=true;$('#save').disabled=true;$('#status').textContent='Saving…';
+  try{
+    var data=currentData();
+    var r=await gh('PUT','/repos/'+session.repo+'/contents/'+PATH,{message:'Admin: update menu',content:toB64(JSON.stringify(data,null,1)+'\n'),sha:state.sha,branch:session.branch});
+    if(r.ok){
+      var j=await r.json();state.sha=j.content.sha;state.raw=data;state.dirty=false;
+      $('#savebar').classList.remove('dirty');$('#status').textContent='Saved. It will be live on the website in about a minute.';
+    }else if(r.status===401){signOut(true);$('#lerr').textContent='Your access key expired or was revoked. Your edits are still on screen; sign in again to save.';$('#lerr').hidden=false;state.dirty=true}
+    else if(r.status===409||r.status===422){$('#status').textContent='The menu file changed on GitHub since you opened it. Download a backup, reload this page, and redo your edits.';$('#save').disabled=false}
+    else if(r.status===403||r.status===404){$('#status').textContent='This key is not allowed to save to the repository (needs Contents: Read and write).';$('#save').disabled=false}
+    else{$('#status').textContent='Could not save (error '+r.status+'). Try again.';$('#save').disabled=false}
+  }catch(e){$('#status').textContent='Network problem. Check your connection and try again.';$('#save').disabled=false}
+  saving=false;
+}
+function backup(){
+  var blob=new Blob([JSON.stringify(currentData(),null,1)],{type:'application/json'});
+  var a=h('a',{href:URL.createObjectURL(blob),download:'aubergine-menu-backup-'+new Date().toISOString().slice(0,10)+'.json'});
+  document.body.append(a);a.click();a.remove();
+}
+
+/* ---------- sign in / out / idle lock ---------- */
+var idleT=null;
+function bumpIdle(){clearTimeout(idleT);if(session)idleT=setTimeout(function(){signOut(false,true)},IDLE_MS)}
+['click','keydown','pointerdown','touchstart'].forEach(function(ev){document.addEventListener(ev,bumpIdle,{passive:true})});
+function showApp(){$('#login').hidden=true;$('#lock').classList.remove('show');$('#app').hidden=false;render();bumpIdle();
+  $('#status').textContent=state.dirty?'Unsaved changes':'No changes';$('#save').disabled=!state.dirty}
+function signOut(keepEdits,idle){
+  session=null;clearTimeout(idleT);try{sessionStorage.removeItem('aub_admin_tok')}catch(e){}
+  $('#token').value='';
+  if(idle&&state&&state.dirty){$('#lock').classList.add('show');return}
+  if(!keepEdits||!(state&&state.dirty))state=null;
+  $('#app').hidden=true;$('#login').hidden=false;$('#lock').classList.remove('show');
+}
+$('#relogin').addEventListener('click',function(){$('#lock').classList.remove('show');$('#app').hidden=true;$('#login').hidden=false});
+$('#out').addEventListener('click',function(){
+  if(state&&state.dirty&&!confirm('You have unsaved changes. Sign out and lose them?'))return;
+  state=null;signOut(false);
+});
+
+$('#lf').addEventListener('submit',async function(e){
+  e.preventDefault();
+  var repo=$('#repo').value.trim().replace(/^https?:\/\/github\.com\//i,'').replace(/\.git$/,'').replace(/\/$/,''),
+      branch=$('#branch').value.trim(),token=$('#token').value.trim(),err=$('#lerr'),btn=$('#lbtn');
+  err.hidden=true;
+  if(!/^[\w.-]+\/[\w.-]+$/.test(repo)){err.textContent='Enter the repository as owner/name, for example mary/aubergine-site.';err.hidden=false;return}
+  btn.disabled=true;btn.textContent='Checking…';
+  try{
+    await signIn(repo,branch,token);
+    try{localStorage.setItem('aub_admin_repo',repo);localStorage.setItem('aub_admin_branch',branch)}catch(x){}
+    try{sessionStorage.setItem('aub_admin_tok',token)}catch(x){}
+    $('#token').value='';showApp();
+  }catch(x){session=null;err.textContent=x.message||'Sign in failed.';err.hidden=false}
+  btn.disabled=false;btn.textContent='Sign in';
+});
+
+/* ---------- wiring ---------- */
+function tab(which){
+  var m=which==='menu';
+  $('#p-menu').hidden=!m;$('#p-home').hidden=m;
+  $('#t-menu').setAttribute('aria-selected',String(m));$('#t-home').setAttribute('aria-selected',String(!m));
+}
+$('#t-menu').addEventListener('click',function(){tab('menu')});
+$('#t-home').addEventListener('click',function(){tab('home')});
+$('#filter').addEventListener('input',function(){if(state)renderMenu()});
+$('#save').addEventListener('click',save);
+$('#backup').addEventListener('click',backup);
+window.addEventListener('beforeunload',function(e){if(state&&state.dirty){e.preventDefault();e.returnValue=''}});
+
+try{
+  $('#repo').value=localStorage.getItem('aub_admin_repo')||'';
+  $('#branch').value=localStorage.getItem('aub_admin_branch')||'main';
+  var t=sessionStorage.getItem('aub_admin_tok'),r0=$('#repo').value;
+  if(t&&r0){signIn(r0,$('#branch').value,t).then(showApp).catch(function(){session=null;try{sessionStorage.removeItem('aub_admin_tok')}catch(e){}})}
+}catch(e){}
+
+})();
+</script>
+</body>
+</html>
